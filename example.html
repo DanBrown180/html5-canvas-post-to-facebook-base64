@@ -4,10 +4,11 @@
 </head> 
 <body>
 <script type = "text/javascript">
- window.fbAsyncInit = function() {
-
-    // init the FB JS SDK
-    FB.init({
+$(document).ready(function() {
+  $.ajaxSetup({ cache: true });
+  $.getScript('//connect.facebook.net/en_UK/all.js', function(){
+  // Load the APP / SDK
+   FB.init({
       appId      : '288585397909199', // App ID from the App Dashboard
       cookie     : true, // set sessions cookies to allow your server to access the session?
       xfbml      : true,  // parse XFBML tags on this page?
@@ -22,8 +23,10 @@
         alert("canceled");
        }
      }, {scope:'publish_actions,publish_stream'});
+  
+  });
+});
 
-  };
   
     </script>
     <div id="fb-root"></div>
