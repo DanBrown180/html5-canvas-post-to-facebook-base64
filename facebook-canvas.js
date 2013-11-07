@@ -1,8 +1,7 @@
 // Post a BASE64 Encoded PNG Image to facebook
 function PostImageToFacebook(authToken)
 {
-$("#poster").html("Posting canvas...");
-var canvas = $("#c");
+var canvas = document.getElementById("c");
 var imageData  = canvas.toDataURL("image/png");
 try{
     blob = dataURItoBlob(imageData);
