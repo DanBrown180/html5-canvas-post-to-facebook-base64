@@ -1,7 +1,8 @@
 // Post a BASE64 Encoded PNG Image to facebook
 function PostImageToFacebook(authToken)
 {
-var canvas = document.getElementById("c");
+$("#poster").html("Posting canvas...");
+var canvas = $("#c");
 var imageData  = canvas.toDataURL("image/png");
 try{
     blob = dataURItoBlob(imageData);
@@ -20,6 +21,7 @@ $.ajax({
     cache:false,
     success:function(data){
         console.log("success " + data);
+        $("#poster").html("Posted Canvas Successfully");
     },
     error:function(shr,status,data){
         console.log("error " + data + " Status " + shr.status);
