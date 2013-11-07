@@ -18,9 +18,9 @@ $(document).ready(function() {
 
      FB.login(function(response) {
        if (response.authResponse) {
-         alert("ok");
+         console.log(response.authResponse);
        } else {
-        alert("canceled");
+        
        }
      }, {scope:'publish_actions,publish_stream'});
   
@@ -32,6 +32,6 @@ $(document).ready(function() {
     <div id="fb-root"></div>
     <fb:login-button scope="publish_actions,publish_stream"></fb:login-button>
     <canvas id="c" width="200" height="100"></canvas>
-<span id = "fb-login">Login</span><span id = "fb-logout">Logout</span>
+<a href = "#" onclick = "PostImageToFacebook(authToken)">Post Canvas Image To Facebook</a>
 </body> 
 </html>
