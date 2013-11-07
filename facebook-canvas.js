@@ -42,9 +42,3 @@ for (var i = 0; i < byteString.length; i++) {
 }
 return new Blob([ab], { type: 'image/png' });
 }
-
-// Render some meaningless stuff on the canvas
-var c=document.getElementById("c");
-var ctx=c.getContext("2d");
-ctx.fillStyle="#FF0000";
-ctx.fillRect(0,0,150,75);
