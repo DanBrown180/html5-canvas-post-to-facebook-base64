@@ -18,7 +18,8 @@ $(document).ready(function() {
 
      FB.login(function(response) {
        if (response.authResponse) {
-         console.log(response.authResponse);
+         var authToken = response.authResponse.accessToken;
+         console.log(authToken);
        } else {
         
        }
