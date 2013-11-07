@@ -1,35 +1,72 @@
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US"> 
-    <script type = "text/javascript" src = "facebook-canvas.js"></script>
-    <script type="text/javascript">
-        // Load the SDK Asynchronously
-        (function(d){
-            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement('script'); js.id = id; js.async = true;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            ref.parentNode.insertBefore(js, ref);
-        }(document));
-
-window.fbAsyncInit = function() {
-    FB.init({ appId: '288585397909199',                    
-        status: true, 
-        cookie: true,
-        xfbml: true,
-        oauth: true});
-
-        document.getElementById('fb-auth').addEventListener('click', function() {
-          FB.login(function(response){
-            if(response.authResponse){
-            console.log(response.authResponse);
-            }
-          }, {scope:'publish_actions'});
-        }, false);
-};
-    </script>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type = "text/javascript" src = "facebook-canvas.js"></script>
 </head> 
-<body> 
+<body>
+<script type = "text/javascript">
+window.fbAsyncInit = function() {
+        FB.init({
+            appId      : app_id,
+            status     : false,
+            cookie     : true,
+            xfbml      : true
+        });
+    };
+
+    (function(d){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+    
+    
+    $('#fb-login').on('click', function() {
+        FB.getLoginStatus(function(responseStatus) {
+            if (responseStatus.status === 'connected') {
+                FB.api('/me', function(responseMe) {
+                    if (!responseMe.id) 
+                        return false;
+                    var accessToken = responseMe.authResponse.accessToken;
+                    $.post('/web/register/faceBookRegistration' {
+                        data                : responseMe,
+                        accessTokenValue    : accessToken
+                    }).done(function(data) {
+                        if (typeof(data) !== 'undefined')
+                            window.location = '/web/login/loadViewFaceLogin';    
+                    });   
+                });
+            }
+            else if (responseStatus.status === 'not_authorized') {
+                FB.login(function(responseLogin) {
+                    FB.api('/me', function(responseMe) {
+                    if (!responseMe.id) 
+                            return false;
+                        var accessToken = responseMe.authResponse.accessToken;
+                        $.post('/web/register/faceBookRegistration' {
+                            data                : responseMe,
+                            accessTokenValue    : accessToken
+                        }).done(function(data) {
+                            if (typeof(data) !== 'undefined')
+                                window.location = '/web/login/loadViewFaceLogin';    
+                        });   
+                    });
+                }, {scope:'publish_stream'' });    
+            }
+            else
+                return false;
+        });    
+    });
+
+    $('#fb-logout').on('click', function() {
+        FB.logout(function(responseLogout) {
+
+        });    
+    });
+    </script>
     <div id="fb-root"></div>
     <canvas id="c" width="200" height="100"></canvas>
-
+<span id = "fb-login">Login</span><span id = "fb-logout">Logout</span>
 </body> 
 </html>
