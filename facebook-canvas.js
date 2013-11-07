@@ -1,3 +1,4 @@
+// Post a BASE64 Encoded PNG Image to facebook
 function PostImageToFacebook(authToken)
 {
 var canvas = document.getElementById("c");
@@ -31,6 +32,7 @@ $.ajax({
 }catch(e){console.log(e);}
 }
 
+// Convert a data URI to blob
 function dataURItoBlob(dataURI) {
 var byteString = atob(dataURI.split(',')[1]);
 var ab = new ArrayBuffer(byteString.length);
@@ -40,3 +42,9 @@ for (var i = 0; i < byteString.length; i++) {
 }
 return new Blob([ab], { type: 'image/png' });
 }
+
+// Render some meaningless stuff on the canvas
+var c=document.getElementById("c");
+var ctx=c.getContext("2d");
+ctx.fillStyle="#FF0000";
+ctx.fillRect(0,0,150,75);
