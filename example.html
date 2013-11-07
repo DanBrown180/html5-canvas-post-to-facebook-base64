@@ -1,33 +1,37 @@
-<html>
-<head>
-<script type = "text/javascript" src = "facebook-canvas.js"></script>
-</head>
-<body>
-<input id="AccessToken" type="text" value="" />
-<div id="fb-root"></div>
-<script src="https://connect.facebook.net/en_US/all.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US"> 
+<head prefix="og: http://ogp.me/ns# og_<<app namespace>>: http://ogp.me/ns/apps/<<app namespace>>#"> 
+    <script type = "text/javascript" src = "facebook-canvas.js"></script>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
+    <script type="text/javascript">
+        // Load the SDK Asynchronously
+        (function(d){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
 
-        FB.init({ 
-            appId: '288585397909199', 
-            cookie: true, 
-            xfbml: true, 
-            status: true });
+window.fbAsyncInit = function() {
+    FB.init({ appId: '288585397909199',                    
+        status: true, 
+        cookie: true,
+        xfbml: true,
+        oauth: true});
 
-        FB.getLoginStatus(function (response) {
-            if (response.authResponse) {
-                $('#AccessToken').val(response.authResponse.accessToken);
-            } else {
-                // do something...maybe show a login prompt
+        document.getElementById('fb-auth').addEventListener('click', function() {
+          FB.login(function(response){
+            if(response.authResponse){
+            console.log(response.authResponse);
             }
-        });
+          }, {scope:'publish_actions'});
+        }, false);
+};
+    </script>
+</head> 
+<body> 
+    <div id="fb-root"></div>
+    <canvas id="c" width="200" height="100"></canvas>
 
-    });
-</script>
-<div id="fb-root"></div>
-
-<canvas id="c" width="200" height="100"></canvas>
-</body>
+</body> 
 </html>
